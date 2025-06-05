@@ -9,7 +9,10 @@ Public Class ConnectionManager
 
         If _connection Is Nothing Then
 
-            Dim connectionString As String = "Data Source=DESKTOP-JSC6DST\SQLEXPRESS;Initial Catalog=db_sistemas;User ID=sa;Password=Coco14.negrita90;TrustServerCertificate=True"
+
+
+            'Dim connectionString As String = "Data Source=DESKTOP-JSC6DST\SQLEXPRESS;Initial Catalog=db_sistemas;User ID=sa;Password=Coco14.negrita90;TrustServerCertificate=True"
+            Dim connectionString As String = "Data Source=PC01548;Initial Catalog=db_sistemas;User ID=sa;Password=Coco14.negrita90;TrustServerCertificate=True"
 
             _connection = New SqlConnection(connectionString)
 
