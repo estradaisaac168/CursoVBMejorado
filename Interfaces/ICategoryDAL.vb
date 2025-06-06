@@ -10,4 +10,21 @@ Public Interface ICategoryDAL
 
     Sub InsertCategory(category As Category)
 
+
+    Sub UpdateCategory(category As Category)
+
+
+
+    Sub DeleteCategory(id As Integer)
+
+
+    Sub EnableCategory(id As Integer)
+
+
+
+    Sub DisableCategory(id As Integer)
+
+
+
+
 End Interface

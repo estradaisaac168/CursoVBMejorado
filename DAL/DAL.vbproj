@@ -64,6 +64,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleDAL.vb" />
     <Compile Include="CategoryDAL.vb" />
     <Compile Include="ConnectionManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

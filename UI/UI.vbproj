@@ -80,6 +80,12 @@
       <DependentUpon>CategoryForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ArticleForm.Designer.vb">
+      <DependentUpon>ArticleForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ArticleForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.Designer.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
@@ -101,6 +107,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CategoryForm.resx">
       <DependentUpon>CategoryForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ArticleForm.resx">
+      <DependentUpon>ArticleForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>

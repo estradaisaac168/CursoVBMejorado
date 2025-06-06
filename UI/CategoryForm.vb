@@ -1,9 +1,11 @@
-﻿Imports BLL
+﻿Imports System.Security.Authentication.ExtendedProtection
+Imports BLL
 Imports Entities
 
 Public Class FrmCategory
 
     Private _categoryBLL As New CategoryBLL
+
 
 
 
@@ -16,13 +18,31 @@ Public Class FrmCategory
         DgvCategories.Columns(3).Width = 400
         DgvCategories.Columns(4).Width = 100
 
+
+
+
+        DgvCategories.Columns.Item("Seleccionar").Visible = False
+
+        BtnDelete.Visible = False
+
+        BtnEnable.Visible = False
+
+        BtnDisable.Visible = False
+
+        CkbSelect.CheckState = False
+
+
     End Sub
+
 
 
 
     Private Sub CategoryForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadCategoryData()
     End Sub
+
+
+
 
     Private Sub LoadCategoryData()
 
@@ -36,12 +56,14 @@ Public Class FrmCategory
 
 
             Me.Format() 'Metodo que me da el formato
+            Me.Clear()
 
         Catch ex As Exception
-            MessageBox.Show("Error al cargar clientes: " & ex.Message)
+            MessageBox.Show("Error al cargar las categorias: " & ex.Message)
         End Try
 
     End Sub
+
 
 
 
@@ -70,15 +92,19 @@ Public Class FrmCategory
 
 
 
+
     Private Sub Clear()
 
         BtnSave.Visible = True
+        BtnEdit.Visible = False
         TxtBuscar.Text = ""
         TxtID.Text = ""
         TxtName.Text = ""
         TxtDescription.Text = ""
 
     End Sub
+
+
 
 
     Private Sub BtnBuscar_Click(sender As Object, e As EventArgs) Handles BtnBuscar.Click
@@ -115,8 +141,6 @@ Public Class FrmCategory
 
                 MsgBox("Se ha guardado la categoria ", vbOKOnly + vbInformation, "Registro correcto")
 
-                Clear() 'Limpiar los campos
-
                 LoadCategoryData() 'Cargo la lista con las categorias
 
             Else
@@ -150,6 +174,7 @@ Public Class FrmCategory
     End Sub
 
 
+
     'Este metodo se genera en los eventos de DataGridView en la parte de CellDoubleClick
     Private Sub DgvCategories_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvCategories.CellDoubleClick
 
@@ -159,7 +184,201 @@ Public Class FrmCategory
         TxtName.Text = DgvCategories.SelectedCells.Item(2).Value
         TxtDescription.Text = DgvCategories.SelectedCells.Item(3).Value
 
+        BtnSave.Visible = False
+
+        BtnEdit.Visible = True
 
 
+        TabMain.SelectedIndex = 1 'Paso al tab de mantenimiento
+
+    End Sub
+
+
+
+
+    Private Sub BtnEdit_Click(sender As Object, e As EventArgs) Handles BtnEdit.Click
+
+
+        If Me.ValidateChildren = True And TxtName.Text.Trim() <> "" And TxtID.Text <> "" Then
+
+            Dim category As New Category()
+
+            category.CategoryId = TxtID.Text.Trim()
+            category.Name = TxtName.Text.Trim()
+            category.Description = TxtDescription.Text.Trim()
+            category.State = True
+
+
+            If _categoryBLL.UpdateCategory(category) Then
+
+                MsgBox("Se ha actualizado la categoria ", vbOKOnly + vbInformation, "Actualizacion correcta")
+
+                LoadCategoryData() 'Cargo la lista con las categorias
+
+                TabMain.SelectedIndex = 0
+
+            Else
+
+                MsgBox("No se ha actualizado la categoria ", vbOKOnly + vbCritical, "Actualizacion incorrecta")
+
+            End If
+
+        Else
+
+            MsgBox("Los campos que tiene (*) son obligatorios", vbOKOnly + vbCritical, "Falta ingresar datos")
+
+        End If
+
+
+    End Sub
+
+
+
+    Private Sub CkbSelect_CheckedChanged(sender As Object, e As EventArgs) Handles CkbSelect.CheckedChanged
+
+
+        If CkbSelect.CheckState = CheckState.Checked Then 'Si el check esta seleccionado
+
+            DgvCategories.Columns.Item("Seleccionar").Visible = True
+
+            BtnDelete.Visible = True
+
+            BtnEnable.Visible = True
+
+            BtnDisable.Visible = True
+
+        Else
+
+            DgvCategories.Columns.Item("Seleccionar").Visible = False
+
+            BtnDelete.Visible = False
+
+            BtnEnable.Visible = False
+
+            BtnDisable.Visible = False
+
+        End If
+
+    End Sub
+
+
+
+    'Evento de dar click en una celda del datagridview
+    Private Sub DgvCategories_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvCategories.CellContentClick
+
+
+        'e.ColumnIndex = me devuelve el indice de la columan en donde se encuentra la celda clickeada
+
+        'DgvCategories.Columns.Item("Seleccionar").Index = Obteno el indice de la columna click
+
+
+        If e.ColumnIndex = DgvCategories.Columns.Item("Seleccionar").Index Then
+
+            Dim chkCell As DataGridViewCheckBoxCell = DgvCategories.Rows(e.RowIndex).Cells("Seleccionar")
+
+            chkCell.Value = Not chkCell.Value
+
+        End If
+
+    End Sub
+
+
+
+    Private Sub BtnDelete_Click(sender As Object, e As EventArgs) Handles BtnDelete.Click
+
+        If (MsgBox("Estas seguro de eliminar los registros seleccionados?", vbYesNo + vbQuestion, "Eliminar registros") = vbYes) Then
+
+            Try
+
+                For Each row As DataGridViewRow In DgvCategories.Rows
+
+                    Dim marked As Boolean = Convert.ToBoolean(row.Cells("Seleccionar").Value)
+
+                    If marked Then
+
+                        Dim oneKey As Integer = Convert.ToInt32(row.Cells("CategoryID").Value)
+
+                        _categoryBLL.DeleteCategory(oneKey)
+
+                    End If
+
+                Next
+
+                Me.LoadCategoryData()
+
+            Catch ex As Exception
+
+                MsgBox(ex.Message())
+
+            End Try
+
+        End If
+
+    End Sub
+
+
+
+
+    Private Sub BtnEnable_Click(sender As Object, e As EventArgs) Handles BtnEnable.Click
+        If (MsgBox("Estas seguro de activar los registros seleccionados?", vbYesNo + vbQuestion, "Activar registros") = vbYes) Then
+
+            Try
+
+                For Each row As DataGridViewRow In DgvCategories.Rows
+
+                    Dim marked As Boolean = Convert.ToBoolean(row.Cells("Seleccionar").Value)
+
+                    If marked Then
+
+                        Dim oneKey As Integer = Convert.ToInt32(row.Cells("CategoryID").Value)
+
+                        _categoryBLL.EnableCategory(oneKey)
+
+                    End If
+
+                Next
+
+                Me.LoadCategoryData()
+
+            Catch ex As Exception
+
+                MsgBox(ex.Message())
+
+            End Try
+
+        End If
+    End Sub
+
+
+
+
+    Private Sub BtnDisable_Click(sender As Object, e As EventArgs) Handles BtnDisable.Click
+        If (MsgBox("Estas seguro de desactivar los registros seleccionados?", vbYesNo + vbQuestion, "Desactivar registros") = vbYes) Then
+
+            Try
+
+                For Each row As DataGridViewRow In DgvCategories.Rows
+
+                    Dim marked As Boolean = Convert.ToBoolean(row.Cells("Seleccionar").Value)
+
+                    If marked Then
+
+                        Dim oneKey As Integer = Convert.ToInt32(row.Cells("CategoryID").Value)
+
+                        _categoryBLL.DisableCategory(oneKey)
+
+                    End If
+
+                Next
+
+                Me.LoadCategoryData()
+
+            Catch ex As Exception
+
+                MsgBox(ex.Message())
+
+            End Try
+
+        End If
     End Sub
 End Class

@@ -98,4 +98,10 @@ Public Class MainForm
         frm.MdiParent = Me
         frm.Show()
     End Sub
+
+    Private Sub ArticulosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ArticulosToolStripMenuItem.Click
+        Dim frm = New ArticleForm()
+        frm.MdiParent = Me
+        frm.Show()
+    End Sub
 End Class

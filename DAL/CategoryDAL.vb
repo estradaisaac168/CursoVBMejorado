@@ -151,4 +151,157 @@ Public Class CategoryDAL
 
 
     End Sub
+
+
+
+    Public Sub UpdateCategory(category As Category) Implements ICategoryDAL.UpdateCategory
+
+        Dim conn As SqlConnection = Nothing
+
+        Dim cmd As SqlCommand = Nothing
+
+        Try
+
+            conn = ConnectionManager.GetConnection()
+
+            Dim query As String = "UPDATE categoria SET
+                                        nombre = @name,
+                                        descripcion = @description
+                                   WHERE idcategoria = @categoryId"
+
+            cmd = New SqlCommand(query, conn)
+
+
+            'Params
+            cmd.Parameters.AddWithValue("@categoryId", category.CategoryId)
+            cmd.Parameters.AddWithValue("@name", category.Name)
+            cmd.Parameters.AddWithValue("@description", category.Description)
+
+
+            cmd.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+            Throw New ApplicationException("Ocurrio un error al actualizar la categoria", ex)
+
+        Finally
+
+            If cmd IsNot Nothing Then cmd.Dispose()
+
+        End Try
+
+    End Sub
+
+
+
+    Public Sub DeleteCategory(id As Integer) Implements ICategoryDAL.DeleteCategory
+
+        Dim conn As SqlConnection = Nothing
+
+        Dim cmd As SqlCommand = Nothing
+
+        Try
+
+            conn = ConnectionManager.GetConnection()
+
+            Dim query As String = "DELETE FROM categoria WHERE idcategoria = @categoryId"
+
+            cmd = New SqlCommand(query, conn)
+
+            cmd.Parameters.AddWithValue("@categoryId", id)
+
+            cmd.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+            Throw New ApplicationException("Error al eliminar la categoria.", ex)
+
+        Finally
+
+            If cmd IsNot Nothing Then cmd.Dispose()
+
+        End Try
+
+
+    End Sub
+
+
+
+    Public Sub EnableCategory(id As Integer) Implements ICategoryDAL.EnableCategory
+
+        Dim conn As SqlConnection = Nothing
+
+        Dim cmd As SqlCommand = Nothing
+
+        Try
+
+            conn = ConnectionManager.GetConnection()
+
+            Dim query As String = "UPDATE categoria SET
+                                        estado = @state
+                                   WHERE idcategoria = @categoryId"
+
+            cmd = New SqlCommand(query, conn)
+
+
+            'Params
+            cmd.Parameters.AddWithValue("@categoryId", id)
+            cmd.Parameters.AddWithValue("@state", 1)
+
+
+            cmd.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+            Throw New ApplicationException("Ocurrio un error al actualizar la categoria", ex)
+
+        Finally
+
+            If cmd IsNot Nothing Then cmd.Dispose()
+
+        End Try
+
+    End Sub
+
+
+
+    Public Sub DisableCategory(id As Integer) Implements ICategoryDAL.DisableCategory
+
+
+        Dim conn As SqlConnection = Nothing
+
+        Dim cmd As SqlCommand = Nothing
+
+        Try
+
+            conn = ConnectionManager.GetConnection()
+
+            Dim query As String = "UPDATE categoria SET
+                                        estado = @state
+                                   WHERE idcategoria = @categoryId"
+
+            cmd = New SqlCommand(query, conn)
+
+
+            'Params
+            cmd.Parameters.AddWithValue("@categoryId", id)
+            cmd.Parameters.AddWithValue("@state", 0)
+
+
+            cmd.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+            Throw New ApplicationException("Ocurrio un error al actualizar la categoria", ex)
+
+        Finally
+
+            If cmd IsNot Nothing Then cmd.Dispose()
+
+        End Try
+
+    End Sub
+
+
+
 End Class

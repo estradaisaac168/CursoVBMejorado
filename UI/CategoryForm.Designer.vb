@@ -24,21 +24,26 @@ Partial Class FrmCategory
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.DgvCategories = New System.Windows.Forms.DataGridView()
+        Me.Seleccionar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.TabMain = New System.Windows.Forms.TabControl()
         Me.TabListado = New System.Windows.Forms.TabPage()
-        Me.TabManteniento = New System.Windows.Forms.TabPage()
-        Me.Seleccionar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.LblTotal = New System.Windows.Forms.Label()
-        Me.TxtBuscar = New System.Windows.Forms.TextBox()
         Me.BtnBuscar = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.TxtName = New System.Windows.Forms.TextBox()
-        Me.TxtDescription = New System.Windows.Forms.TextBox()
-        Me.BtnCancel = New System.Windows.Forms.Button()
-        Me.BtnSave = New System.Windows.Forms.Button()
+        Me.TxtBuscar = New System.Windows.Forms.TextBox()
+        Me.LblTotal = New System.Windows.Forms.Label()
+        Me.TabManteniento = New System.Windows.Forms.TabPage()
+        Me.BtnEdit = New System.Windows.Forms.Button()
         Me.TxtID = New System.Windows.Forms.TextBox()
+        Me.BtnSave = New System.Windows.Forms.Button()
+        Me.BtnCancel = New System.Windows.Forms.Button()
+        Me.TxtDescription = New System.Windows.Forms.TextBox()
+        Me.TxtName = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.ErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.CkbSelect = New System.Windows.Forms.CheckBox()
+        Me.BtnDelete = New System.Windows.Forms.Button()
+        Me.BtnEnable = New System.Windows.Forms.Button()
+        Me.BtnDisable = New System.Windows.Forms.Button()
         CType(Me.DgvCategories, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabMain.SuspendLayout()
         Me.TabListado.SuspendLayout()
@@ -60,6 +65,12 @@ Partial Class FrmCategory
         Me.DgvCategories.Size = New System.Drawing.Size(847, 270)
         Me.DgvCategories.TabIndex = 0
         '
+        'Seleccionar
+        '
+        Me.Seleccionar.HeaderText = "Seleccionar"
+        Me.Seleccionar.Name = "Seleccionar"
+        Me.Seleccionar.ReadOnly = True
+        '
         'TabMain
         '
         Me.TabMain.Controls.Add(Me.TabListado)
@@ -72,6 +83,10 @@ Partial Class FrmCategory
         '
         'TabListado
         '
+        Me.TabListado.Controls.Add(Me.BtnDisable)
+        Me.TabListado.Controls.Add(Me.BtnEnable)
+        Me.TabListado.Controls.Add(Me.BtnDelete)
+        Me.TabListado.Controls.Add(Me.CkbSelect)
         Me.TabListado.Controls.Add(Me.BtnBuscar)
         Me.TabListado.Controls.Add(Me.TxtBuscar)
         Me.TabListado.Controls.Add(Me.LblTotal)
@@ -84,9 +99,35 @@ Partial Class FrmCategory
         Me.TabListado.Text = "Listado de categorias"
         Me.TabListado.UseVisualStyleBackColor = True
         '
+        'BtnBuscar
+        '
+        Me.BtnBuscar.Location = New System.Drawing.Point(757, 20)
+        Me.BtnBuscar.Name = "BtnBuscar"
+        Me.BtnBuscar.Size = New System.Drawing.Size(99, 23)
+        Me.BtnBuscar.TabIndex = 3
+        Me.BtnBuscar.Text = "Buscar"
+        Me.BtnBuscar.UseVisualStyleBackColor = True
+        '
+        'TxtBuscar
+        '
+        Me.TxtBuscar.Location = New System.Drawing.Point(447, 22)
+        Me.TxtBuscar.Name = "TxtBuscar"
+        Me.TxtBuscar.Size = New System.Drawing.Size(288, 20)
+        Me.TxtBuscar.TabIndex = 2
+        '
+        'LblTotal
+        '
+        Me.LblTotal.AutoSize = True
+        Me.LblTotal.Location = New System.Drawing.Point(704, 360)
+        Me.LblTotal.Name = "LblTotal"
+        Me.LblTotal.Size = New System.Drawing.Size(31, 13)
+        Me.LblTotal.TabIndex = 1
+        Me.LblTotal.Text = "Total"
+        '
         'TabManteniento
         '
         Me.TabManteniento.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TabManteniento.Controls.Add(Me.BtnEdit)
         Me.TabManteniento.Controls.Add(Me.TxtID)
         Me.TabManteniento.Controls.Add(Me.BtnSave)
         Me.TabManteniento.Controls.Add(Me.BtnCancel)
@@ -102,78 +143,22 @@ Partial Class FrmCategory
         Me.TabManteniento.Text = "Mantenimiento"
         Me.TabManteniento.UseVisualStyleBackColor = True
         '
-        'Seleccionar
+        'BtnEdit
         '
-        Me.Seleccionar.HeaderText = "Seleccionar"
-        Me.Seleccionar.Name = "Seleccionar"
-        Me.Seleccionar.ReadOnly = True
+        Me.BtnEdit.Location = New System.Drawing.Point(127, 289)
+        Me.BtnEdit.Name = "BtnEdit"
+        Me.BtnEdit.Size = New System.Drawing.Size(99, 45)
+        Me.BtnEdit.TabIndex = 7
+        Me.BtnEdit.Text = "Actualizar"
+        Me.BtnEdit.UseVisualStyleBackColor = True
         '
-        'LblTotal
+        'TxtID
         '
-        Me.LblTotal.AutoSize = True
-        Me.LblTotal.Location = New System.Drawing.Point(704, 360)
-        Me.LblTotal.Name = "LblTotal"
-        Me.LblTotal.Size = New System.Drawing.Size(31, 13)
-        Me.LblTotal.TabIndex = 1
-        Me.LblTotal.Text = "Total"
-        '
-        'TxtBuscar
-        '
-        Me.TxtBuscar.Location = New System.Drawing.Point(447, 22)
-        Me.TxtBuscar.Name = "TxtBuscar"
-        Me.TxtBuscar.Size = New System.Drawing.Size(288, 20)
-        Me.TxtBuscar.TabIndex = 2
-        '
-        'BtnBuscar
-        '
-        Me.BtnBuscar.Location = New System.Drawing.Point(757, 20)
-        Me.BtnBuscar.Name = "BtnBuscar"
-        Me.BtnBuscar.Size = New System.Drawing.Size(99, 23)
-        Me.BtnBuscar.TabIndex = 3
-        Me.BtnBuscar.Text = "Buscar"
-        Me.BtnBuscar.UseVisualStyleBackColor = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(35, 110)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(57, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Nombre (*)"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(35, 160)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(63, 13)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Descripcion"
-        '
-        'TxtName
-        '
-        Me.TxtName.Location = New System.Drawing.Point(127, 107)
-        Me.TxtName.Name = "TxtName"
-        Me.TxtName.Size = New System.Drawing.Size(332, 20)
-        Me.TxtName.TabIndex = 2
-        '
-        'TxtDescription
-        '
-        Me.TxtDescription.Location = New System.Drawing.Point(127, 157)
-        Me.TxtDescription.Multiline = True
-        Me.TxtDescription.Name = "TxtDescription"
-        Me.TxtDescription.Size = New System.Drawing.Size(332, 87)
-        Me.TxtDescription.TabIndex = 3
-        '
-        'BtnCancel
-        '
-        Me.BtnCancel.Location = New System.Drawing.Point(366, 289)
-        Me.BtnCancel.Name = "BtnCancel"
-        Me.BtnCancel.Size = New System.Drawing.Size(93, 45)
-        Me.BtnCancel.TabIndex = 4
-        Me.BtnCancel.Text = "Cancelar"
-        Me.BtnCancel.UseVisualStyleBackColor = True
+        Me.TxtID.Location = New System.Drawing.Point(366, 69)
+        Me.TxtID.Name = "TxtID"
+        Me.TxtID.Size = New System.Drawing.Size(93, 20)
+        Me.TxtID.TabIndex = 6
+        Me.TxtID.Visible = False
         '
         'BtnSave
         '
@@ -184,17 +169,88 @@ Partial Class FrmCategory
         Me.BtnSave.Text = "Insertar"
         Me.BtnSave.UseVisualStyleBackColor = True
         '
-        'TxtID
+        'BtnCancel
         '
-        Me.TxtID.Location = New System.Drawing.Point(366, 69)
-        Me.TxtID.Name = "TxtID"
-        Me.TxtID.Size = New System.Drawing.Size(93, 20)
-        Me.TxtID.TabIndex = 6
-        Me.TxtID.Visible = False
+        Me.BtnCancel.Location = New System.Drawing.Point(366, 289)
+        Me.BtnCancel.Name = "BtnCancel"
+        Me.BtnCancel.Size = New System.Drawing.Size(93, 45)
+        Me.BtnCancel.TabIndex = 4
+        Me.BtnCancel.Text = "Cancelar"
+        Me.BtnCancel.UseVisualStyleBackColor = True
+        '
+        'TxtDescription
+        '
+        Me.TxtDescription.Location = New System.Drawing.Point(127, 157)
+        Me.TxtDescription.Multiline = True
+        Me.TxtDescription.Name = "TxtDescription"
+        Me.TxtDescription.Size = New System.Drawing.Size(332, 87)
+        Me.TxtDescription.TabIndex = 3
+        '
+        'TxtName
+        '
+        Me.TxtName.Location = New System.Drawing.Point(127, 107)
+        Me.TxtName.Name = "TxtName"
+        Me.TxtName.Size = New System.Drawing.Size(332, 20)
+        Me.TxtName.TabIndex = 2
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(35, 160)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(63, 13)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "Descripcion"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(35, 110)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(57, 13)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Nombre (*)"
         '
         'ErrorProvider
         '
         Me.ErrorProvider.ContainerControl = Me
+        '
+        'CkbSelect
+        '
+        Me.CkbSelect.AutoSize = True
+        Me.CkbSelect.Location = New System.Drawing.Point(9, 356)
+        Me.CkbSelect.Name = "CkbSelect"
+        Me.CkbSelect.Size = New System.Drawing.Size(82, 17)
+        Me.CkbSelect.TabIndex = 4
+        Me.CkbSelect.Text = "Seleccionar"
+        Me.CkbSelect.UseVisualStyleBackColor = True
+        '
+        'BtnDelete
+        '
+        Me.BtnDelete.Location = New System.Drawing.Point(129, 352)
+        Me.BtnDelete.Name = "BtnDelete"
+        Me.BtnDelete.Size = New System.Drawing.Size(75, 23)
+        Me.BtnDelete.TabIndex = 5
+        Me.BtnDelete.Text = "Eliminar"
+        Me.BtnDelete.UseVisualStyleBackColor = True
+        '
+        'BtnEnable
+        '
+        Me.BtnEnable.Location = New System.Drawing.Point(283, 352)
+        Me.BtnEnable.Name = "BtnEnable"
+        Me.BtnEnable.Size = New System.Drawing.Size(75, 23)
+        Me.BtnEnable.TabIndex = 6
+        Me.BtnEnable.Text = "Activar"
+        Me.BtnEnable.UseVisualStyleBackColor = True
+        '
+        'BtnDisable
+        '
+        Me.BtnDisable.Location = New System.Drawing.Point(388, 352)
+        Me.BtnDisable.Name = "BtnDisable"
+        Me.BtnDisable.Size = New System.Drawing.Size(75, 23)
+        Me.BtnDisable.TabIndex = 7
+        Me.BtnDisable.Text = "Desactivar"
+        Me.BtnDisable.UseVisualStyleBackColor = True
         '
         'FrmCategory
         '
@@ -231,4 +287,9 @@ Partial Class FrmCategory
     Friend WithEvents Label1 As Label
     Friend WithEvents TxtID As TextBox
     Friend WithEvents ErrorProvider As ErrorProvider
+    Friend WithEvents BtnEdit As Button
+    Friend WithEvents BtnDisable As Button
+    Friend WithEvents BtnEnable As Button
+    Friend WithEvents BtnDelete As Button
+    Friend WithEvents CkbSelect As CheckBox
 End Class

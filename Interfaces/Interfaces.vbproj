@@ -64,6 +64,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IArticleBLL.vb" />
+    <Compile Include="IArticleDAL.vb" />
     <Compile Include="ICategoryBLL.vb" />
     <Compile Include="ICategoryDAL.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
